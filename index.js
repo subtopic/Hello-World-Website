@@ -1,11 +1,9 @@
-'use strict';
-var fs = require('fs');
+var http = require('http');
 
- exports.get = function(event, context) {
-   var contents = fs.readFileSync("public/index.html");
-   context.succeed({
-     statusCode: 200,
-     body: contents.toString(),
-     headers: {'Content-Type': 'text/html'}
-   });
- };
+function onRequest(request, response) {
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write('Hello World');
+    response.end();
+}
+
+http.createServer(onRequest).listen(8000);
